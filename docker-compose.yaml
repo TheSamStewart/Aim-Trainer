@@ -4,8 +4,5 @@ services:
     ports:
       - "8080:80"
     volumes:
-      # This links your current directory to the app directory in the container
       - .:/usr/src/app
-      # Optional: This prevents your local node_modules from overwriting 
-      # the container's node_modules (important for Node.js projects)
       - /usr/src/app/node_modules
