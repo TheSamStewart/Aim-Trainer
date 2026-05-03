@@ -1,0 +1,7 @@
+services:
+  aim-trainer:
+    build: .
+    ports:
+      - "3000:8080"
+    volumes:
+      - .:/app

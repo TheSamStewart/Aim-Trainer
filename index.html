@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Good</title>
+    
+    <!-- external stuff here -->
+    
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class = "bg-sky-950 ">
+
+    <!-- HUD like top bar -->
+    <div id="top-bar" class="relative mx-auto w-[30%] bg-sky-900  px-10 py-2 text-center drop-shadow-[0_10px_25px_rgba(14,165,233,0.25)] transition-transform duration-300 hover:scale-110 cursor-pointer  
+            before:absolute before:inset-y-0 before:-left-6 before:w-6 before:bg-sky-900 
+            before:[clip-path:polygon(0_0,100%_0,100%_100%)]
+            
+            after:absolute after:inset-y-0 after:-right-6 after:w-6 after:bg-sky-900 
+            after:[clip-path:polygon(0_0,100%_0,0_100%)]">
+
+
+        <span id="top-bar-content" class="text-slate-200 text-4xl font-bold font-sans font-stretch-75% tracking-wider">GetGood.com</span>
+
+
+    </div>
+     <!-- middle section for difficulty buttons and game rules -->
+
+    <div id="difficulty-section" class="absolute top-[45%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center text-center p-12 bg-sky-800 rounded-3xl drop-shadow-[0_10px_25px_rgba(14,165,233,0.25)] w-11/12 max-w-3xl text-slate-200 gap-8">
+
+        <h1 id="rule-title" class="text-4xl font-bold font-sans font-stretch-75% tracking-wider">GAME RULES</h1>
+        <p id="rule-content" class="text-xl font-sans text-slate-300">Hit as many targets as you can in 60 seconds. Difficulty selection affects target size and movement speed.</p>
+        
+        <div id="difficulty-buttons" class="flex flex-row justify-center gap-6 mt-4 w-full">
+            
+            <button id="easy-button" class="w-40 h-14 bg-sky-900 rounded-2xl text-slate-200 text-xl font-stretch-75% font-sans drop-shadow-[0_10px_25px_rgba(14,165,233,0.25)] transition-all duration-300 hover:scale-110 hover:bg-sky-700 hover:drop-shadow-[0_0_20px_rgba(14,165,233,0.8)] cursor-pointer">EASY</button>
+            <button id="reg-button" class="w-40 h-14 bg-sky-900 rounded-2xl text-slate-200 text-xl font-stretch-75% font-sans drop-shadow-[0_10px_25px_rgba(14,165,233,0.25)] transition-all duration-300 hover:scale-110 hover:bg-sky-700 hover:drop-shadow-[0_0_20px_rgba(14,165,233,0.8)] cursor-pointer">REGULAR</button>
+            <button id="hard-button" class="w-40 h-14 bg-sky-900 rounded-2xl text-slate-200 text-xl font-stretch-75% font-sans drop-shadow-[0_10px_25px_rgba(14,165,233,0.25)] transition-all duration-300 hover:scale-110 hover:bg-sky-700 hover:drop-shadow-[0_0_20px_rgba(14,165,233,0.8)] cursor-pointer">HARD</button>
+            
+        </div>
+        
+    </div>
+
+    <!-- Button -->
+    <div id="start-button-container" class="absolute top-[85%] left-1/2 -translate-x-1/2 animate-breathe">
+
+
+        <button id="start-button" class="w-80 h-14 bg-sky-900 rounded-2xl text-slate-200 text-4xl font-stretch-75% font-bold tracking-wider drop-shadow-[0_10px_25px_rgba(14,165,233,0.25)] transition-all duration-300 hover:scale-125 hover:bg-sky-700 hover:drop-shadow-[0_0_20px_rgba(14,165,233,0.8)] cursor-pointer">START</button>
+
+
+    </div>
+    
+
+</body>
+<script src  = "index.js"></script>
+</html>

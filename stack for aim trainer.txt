@@ -1,0 +1,32 @@
+stack for aim trainer
+
+html with tailwind css
+vanilla js
+
+steps:
+
+1 - quick course on tailwind css - 
+2 - quick lookup on games in html/js -
+3 - create architecture for website
+4 - setup folder
+5 - create order of operations and develop
+
+tailwind css
+
+JIT compiler, when style is not predefined like text size? you can generate it on the fly like this? text-[30px] explain further
+
+
+Element,Tailwind Class,Hex Code,Purpose
+
+Primary BG,bg-indigo-950,#1e1b4b The base void.
+
+Accent (Action),bg-cyan-400,#22d3ee, Buttons, targets, and active states.
+
+Secondary,bg-indigo-900,#312e81,Cards, panels, and borders.
+
+Text,text-slate-100,#f1f5f9,High readability.
+
+<div id = "top-bar" class = "bg-indigo-900  w-3xs mx-auto text-center rounded-b-lg py-1.5 ">
+        <span id = "top-bar-content" class = " text-slate-200 text-base font-stretch-75%">GetGoodAim.com</span>
+    </div>
+    
