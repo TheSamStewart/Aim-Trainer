@@ -12,20 +12,34 @@ const hard_button = document.getElementById("hard-button")
 const start_button_container = document.getElementById("start-button-container")
 const start_button = document.getElementById("start-button")
 
-//target image
+//SOUNDS
+
+let button_sound = new Audio("difficulty_button_clicked.mp3")
+let target_clicked_sound = new Audio("target_clicked.mp3")
 
 
+//GAME STATE VARIABLES
 
 //DIFFICULTY VARIABLE
 //easy by default
+
 let difficulty = 1
 
 //Score variable
 let score = 0
 
+//size variable
+let size = 150
 
+//timer variable
+let game_timer = 60
 
+//timer and animation IDs, so can stop them
+let timer_interval
+let animation_id
 
+//game state flag
+let end_game_flag = false
 
 
 
@@ -35,10 +49,14 @@ let score = 0
 //WHEN EASY BUTTON IS PRESSED SET difficulty 1 and apply css styling to show button is selected
 
 easy_button.addEventListener ("click", function(){
+
+    button_sound.play()
+
     
     //select difficulty
 
     difficulty = 1
+    size = 150
 
     //edit button css to look selected
 
@@ -54,10 +72,13 @@ easy_button.addEventListener ("click", function(){
 //WHEN REGULAR BUTTON IS PRESSED set difficulty 2 and apply css
 
 regular_button.addEventListener ("click", function(){
+
+    button_sound.play()
     
     //select difficulty
     
     difficulty = 2
+    size = 100
 
     //edit button css to look selected
 
@@ -72,10 +93,13 @@ regular_button.addEventListener ("click", function(){
 //WHEN HARD BUTTON IS PRESSED set difficulty 3 and apply css
 
 hard_button.addEventListener ("click", function(){
+
+    button_sound.play()
     
     //select difficulty
     
     difficulty = 3
+    size = 50
     
     //edit button css to look selected
     
@@ -91,14 +115,23 @@ hard_button.addEventListener ("click", function(){
 //START THE GAME
 start_button.addEventListener ("click", function(){
 
+    button_sound.play()
+
     //set all menu elements to display none
 
-    top_bar.innerText = "none"
+    top_bar_content.innerText = "score"
     difficulty_section.style.display = "none"
     start_button.style.display = "none"
+    rule_title.style.display = "none"
+    rule_content.style.display = "none"
 
+    animation_id = requestAnimationFrame(update_game)
+
+    //timer function
+    timer_interval = window.setInterval(decrement_time, 1000)
+    
     spawn_target()
-   
+
 })
 
 function spawn_target() {
@@ -115,10 +148,11 @@ function spawn_target() {
     //add the new target
     let target = document.createElement("img")
     target.src = "target.png"
-    target.style.width = "50px"
-    target.style.height = "50px"
+    target.style.width = `${size}px`
+    target.style.height = `${size}px`
     target.style.position = "absolute"
     target.id = "target"
+    target.draggable = false
 
     //position randomly
     target.style.left = Math.random() * 80 + '%'
@@ -126,16 +160,90 @@ function spawn_target() {
 
     //add the event listener
     target.addEventListener ("click", function(){
+        
+        target_clicked_sound.currentTime = 0
+        target_clicked_sound.play()    
+        
         score++
-        spawn_target();
+
+            if (end_game_flag === false){
+                spawn_target()
+            }
+            
+        
     })
 
     game_board.appendChild(target)
-    
-    
 
 
 }
 
+//updates the score and time elememts
+
+function update_game(){
+
+    //display top bar text and update game
+
+    top_bar_content.innerHTML = `Score: ${score} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Time: ${game_timer}` 
+
+    animation_id = requestAnimationFrame(update_game)
 
 
+}
+
+//ends the game and displays score to the user with a menu button which reloads the page and sends user to the start menu
+
+function end_game(){
+
+    console.log("ended")
+    //stops the game loop
+    cancelAnimationFrame(animation_id)
+    //stops timer
+    clearInterval(timer_interval)
+    //remove target
+    let current_target = document.getElementById("target")
+    if (current_target) {
+        current_target.remove()
+    }
+    //reset top bar 
+    top_bar_content.innerHTML = "GetGood.com"
+
+    //create Game Over Screen
+    let end_container = document.createElement("div")
+    end_container.id = "end-container"
+    end_container.className = "absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+    end_container.innerHTML = `
+        <h1 class="text-5xl font-bold text-slate-200 mb-4">Game Over</h1>
+        <p class="text-3xl font-semibold text-slate-200">Final Score: ${score}</p>
+    `
+    game_board.appendChild(end_container)
+
+    //add MENU button in the same location as Start button
+    let menu_button = document.createElement("button")
+    menu_button.id = "menu-button"
+    menu_button.className = start_button.className
+    menu_button.innerText = "MENU"
+    start_button_container.appendChild(menu_button)
+
+    menu_button.addEventListener("click", function(){
+        
+        button_sound.play()
+
+        setTimeout(function() {
+            location.reload()
+        }, 300) // wait 300 milliseconds for the sound to play
+    })
+}
+
+
+//function to decrement time
+function decrement_time(){
+
+    game_timer -= 1
+
+    if (game_timer === 0){
+
+        end_game()
+
+    }
+}
