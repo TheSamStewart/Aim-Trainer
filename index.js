@@ -156,7 +156,7 @@ function spawn_target() {
 
     //position randomly
     target.style.left = Math.random() * 80 + '%'
-    target.style.top = Math.random() * 80 + '%'
+    target.style.top = (Math.random() * 65 + 15) + '%'
 
     //add the event listener
     target.addEventListener ("click", function(){
@@ -185,6 +185,8 @@ function update_game(){
     //display top bar text and update game
 
     top_bar_content.innerHTML = `Score: ${score} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Time: ${game_timer}` 
+
+    document.getElementById(target)
 
     animation_id = requestAnimationFrame(update_game)
 
