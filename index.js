@@ -31,6 +31,11 @@ let score = 0
 //size variable
 let size = 150
 
+//movement variable
+let movement = 0.5
+let direction_x = 1
+let direction_y = 1
+
 //timer variable
 let game_timer = 60
 
@@ -42,6 +47,12 @@ let animation_id
 let end_game_flag = false
 
 
+
+
+
+
+//lock the viewport
+document.body.style.overflow = 'hidden'
 
 //MENU BUTTON PRESSES
 
@@ -56,6 +67,7 @@ easy_button.addEventListener ("click", function(){
     //select difficulty
 
     difficulty = 1
+    movement = 0.5
     size = 150
 
     //edit button css to look selected
@@ -78,6 +90,7 @@ regular_button.addEventListener ("click", function(){
     //select difficulty
     
     difficulty = 2
+    movement = 1
     size = 100
 
     //edit button css to look selected
@@ -99,6 +112,7 @@ hard_button.addEventListener ("click", function(){
     //select difficulty
     
     difficulty = 3
+    movement = 1.5
     size = 50
     
     //edit button css to look selected
@@ -158,6 +172,10 @@ function spawn_target() {
     target.style.left = Math.random() * 80 + '%'
     target.style.top = (Math.random() * 65 + 15) + '%'
 
+    // Set independent random X and Y directions when the target spawns
+    direction_x = Math.random() < 0.5 ? -1 : 1
+    direction_y = Math.random() < 0.5 ? -1 : 1
+
     //add the event listener
     target.addEventListener ("click", function(){
         
@@ -167,6 +185,7 @@ function spawn_target() {
         score++
 
             if (end_game_flag === false){
+
                 spawn_target()
             }
             
@@ -174,6 +193,8 @@ function spawn_target() {
     })
 
     game_board.appendChild(target)
+
+    return target
 
 
 }
@@ -186,7 +207,39 @@ function update_game(){
 
     top_bar_content.innerHTML = `Score: ${score} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Time: ${game_timer}` 
 
-    document.getElementById(target)
+    //get the target for movement 
+    let current_target = document.getElementById("target")
+
+    // Only update movement if the target currently exists
+    if (current_target) {
+       
+        //current current rect position in viewport
+        let current_target_position = current_target.getBoundingClientRect()
+        let viewport_width = window.innerWidth
+        let viewport_height = window.innerHeight
+
+        //get movement direction
+        
+
+        //calculate the movement amount
+        let new_top = current_target_position.top + (movement*direction_x)
+        let new_left = current_target_position.left + (movement*direction_y)
+
+        // Apply the movement to the target CSS (needs 'px' appended)
+        current_target.style.top = new_top + "px"
+        current_target.style.left = new_left + "px"
+
+        //check boundaries
+        if (new_top < 0 || new_top + current_target_position.height > viewport_height 
+            ||new_left < 0 || new_left + current_target_position.width > viewport_width
+        )
+        {
+            current_target.remove()
+            spawn_target()
+        }
+    }
+
+    //if the target goes off screen, remove it
 
     animation_id = requestAnimationFrame(update_game)
 
