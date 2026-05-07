@@ -14,8 +14,8 @@ const start_button = document.getElementById("start-button")
 
 //SOUNDS
 
-let button_sound = new Audio("difficulty_button_clicked.mp3")
-let target_clicked_sound = new Audio("target_clicked.mp3")
+let button_sound = new Audio("./sounds/difficulty_button_clicked.mp3")
+let target_clicked_sound = new Audio("./sounds/target_clicked.mp3")
 
 
 //GAME STATE VARIABLES
@@ -161,7 +161,7 @@ function spawn_target() {
     
     //add the new target
     let target = document.createElement("img")
-    target.src = "target.png"
+    target.src = "./images/target.png"
     target.style.width = `${size}px`
     target.style.height = `${size}px`
     target.style.position = "absolute"
