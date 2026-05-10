@@ -56,7 +56,7 @@ regular_button.addEventListener ("click", function(){
 
     regular_button.classList.replace("bg-sky-900", "bg-sky-700")
 
-    
+    // edit all other buttons to be deselected
 
     easy_button.classList.replace("bg-sky-700", "bg-sky-900")
     hard_button.classList.replace("bg-sky-700", "bg-sky-900")
